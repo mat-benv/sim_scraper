@@ -1,16 +1,11 @@
 import scraper
 import json
-import os
+from datetime import datetime as dt
 
 def main():
 
-   url = os.getenv("SCRAPER_URL")
-   user_agent = os.getenv("SCRAPER_USER_AGENT")
-
-   if not url or not user_agent:
-      raise ValueError("Set SCRAPER_URL and SCRAPER_USER_AGENT environment variables")
-   
-   headers = {"User-Agent": user_agent}
+   url = "https://www.consorciofenix.com.br/horarios"
+   headers = {"User-Agent": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:15.0) Gecko/20100101 Firefox/15.0.1"}
 
    print("Fetching individual line urls...")
    line_urls: list[str] = scraper.get_lines(url, headers)
@@ -19,7 +14,9 @@ def main():
    sim_timetables: dict[str,dict] = scraper.get_all_timetables(url, headers, line_urls)
 
    print("Scrape succesful. Saving...")
-   with open("tables/timetable.json", "w", encoding="utf-8") as f:
+
+   filename = f"log/{dt.now().isoformat()}.json"
+   with open(filename, "w", encoding="utf-8") as f:
       json.dump(sim_timetables, f, indent=3, ensure_ascii=False)
    print("Saved.")
 

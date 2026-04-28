@@ -29,6 +29,18 @@ def get_lines(url: str, headers: dict[str,str]) -> list[str]:
    return lines_url
 
 def get_timetables(url: str, headers:dict[str,str], session: requests.Session | None = None) -> dict[str,dict]:
+   """
+   Get timetable data from individual line url.
+   Args:
+      url:
+         Str: Specific line url
+      headers:
+         dict: Session headers
+      session:
+         session [optional]: requests session
+   Returns:
+      dict[str,dict]: timetable data
+   """
    line: dict[str,dict] = {}
    client = session or requests
    response = client.get(url, headers=headers, timeout=15)
@@ -54,6 +66,18 @@ def get_timetables(url: str, headers:dict[str,str], session: requests.Session | 
 
 
 def get_all_timetables(url: str, headers: dict, line_urls: list) -> dict[str,dict]:
+   """
+   Fetches data from all line urls in a list
+   Args:
+      url:
+         str: base url
+      headers:
+         dict: requests session header
+      line_url:
+         list: list of suburls
+   Returns:
+      dict[str][dict]: timetable data for all lines in list
+   """
    sim_timetable : dict[str,dict] = {}
    with requests.Session() as session:
       for suburl in line_urls:

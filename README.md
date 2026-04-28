@@ -11,16 +11,10 @@ No AI used for writing the code.
 - `requests`
 - `beautifulsoup4`
 - `lxml`
+- `datetime`
 
 ```bash
-pip install requests beautifulsoup4 lxml
-```
-
-## Required environment variables:
-
-```bash
-export SCRAPER_URL="https://www.c********f****.com.br/horarios" #change to proper url
-export SCRAPER_USER_AGENT="Mozilla/5.0 ..." #change to your user agent of choice
+pip install requests beautifulsoup4 lxml datetime
 ```
 
 ## Project structure
@@ -28,6 +22,6 @@ export SCRAPER_USER_AGENT="Mozilla/5.0 ..." #change to your user agent of choice
 ```text
 main.py
 scraper.py
-tables/
-  timetable.json
+log/
+  *.json
 ```
